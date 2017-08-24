@@ -13,6 +13,7 @@ require('dotenv').config();
 
 
 var stocks = ['FB','MSFT'];
+var port = process.env.PORT || 8000;
 
 
 app.use(express.static(__dirname + '/public'));
@@ -49,6 +50,6 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(8000, function(){
+http.listen(port, function(){
   console.log('listening on *:8000');
 });
