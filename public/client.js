@@ -99,28 +99,36 @@ function createChart() {
 }
 
 $.each(names,function(i, name){
-  console.log(name);
     $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?column_index=4&start_date=2012-05-18&end_date=2017-08-23&api_key=TtcofE5o1LspPik3aRR6',function (response) {
-        var arr=[];
-        //console.log(response);
-        $("#info-"+i).text(response.dataset.name);
-        arr = response.dataset.data.reverse();
-        arr.map(function(element){
-          element[0] = new Date(element[0]).getTime();
-        });
-
-        //console.log(arr);
-        
-        seriesOptions[i] = {
-            name: name,
-            data: arr
-        };
-        seriesCounter += 1;
-
-        if (seriesCounter === names.length) {
-            createChart();
+        if(response.quandl_error)
+        {
+              humane.log(response.quandl_error.message, {addnCls: 'humane-libnotify-error'});
         }
-    });});
+        else
+        {
+          var arr=[];
+          //console.log(response);
+          $("#info-"+i).text(response.dataset.name);
+          arr = response.dataset.data.reverse();
+          arr.map(function(element){
+            element[0] = new Date(element[0]).getTime();
+          });
+
+          //console.log(arr);
+          
+          seriesOptions[i] = {
+              name: name,
+              data: arr
+          };
+          seriesCounter += 1;
+
+          if (seriesCounter === names.length) {
+              createChart();
+          }
+        }
+        
+    });
+  });
 
 }
 
