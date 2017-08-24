@@ -100,7 +100,7 @@ function createChart() {
 
 $.each(names,function(i, name){
   console.log(name);
-    $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?column_index=4&start_date=2012-05-18&end_date=2017-08-23&api_key='+process.env.API_KEY,function (response) {
+    $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?column_index=4&start_date=2012-05-18&end_date=2017-08-23&api_key=TtcofE5o1LspPik3aRR6',function (response) {
         var arr=[];
         //console.log(response);
         $("#info-"+i).text(response.dataset.name);
