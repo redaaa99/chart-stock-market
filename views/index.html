@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stock Market</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/humane-js/3.2.2/themes/libnotify.min.css" />
+    <link rel="stylesheet" href="/style.css">
+  </head>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/humane-js/3.2.2/humane.min.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="/client.js"></script>
+<script type="text/javascript">    
+</script>
+  <body>
+    <header>
+      <h1>
+        Stock Market Graph
+      </h1>
+    </header>
+
+    <div id="menu">
+      <p id="addstock" >Add a stock code:</p>
+      <form>
+        <input type="text" name="code" maxlength="6" placeholder="Code">
+        <br>
+        <button id="submit" type="submit">Submit</button>
+      </form>
+      <section class="stocks">
+        <ul id="stocks">
+        </ul>
+      </section>
+    </div>
+    <div id="chart">
+<div id="container"></div>
+    </div>
+  </body>
+</html>
