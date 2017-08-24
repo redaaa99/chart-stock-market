@@ -3,7 +3,7 @@ var socket = io();
 
 $.get('/stocks', function(stocks) {
   console.log("Called get");
-  if(stocks){
+  if(stocks || stocks.length>9){
     renderQuotes(stocks);
     drawChart(stocks);
   }
@@ -14,13 +14,13 @@ socket.on('error', function(error){
 });
 
 socket.on('chat message', function(stocks){
-  if(stocks){
+  if(stocks || stocks.length>9){
     renderQuotes(stocks);
     drawChart(stocks);
   }
 });
 socket.on('remove message', function(stocks){
-    if(stocks){
+    if(stocks || stocks.length>9){
       renderQuotes(stocks);
       drawChart(stocks);
     }
@@ -99,13 +99,10 @@ function createChart() {
 }
 
 $.each(names,function(i, name){
-    $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?column_index=4&start_date=2012-05-18&end_date=2017-08-23&api_key=TtcofE5o1LspPik3aRR6',function (response) {
-        if(response.quandl_error)
-        {
-              humane.log(response.quandl_error.message, {addnCls: 'humane-libnotify-error'});
-        }
-        else
-        {
+    $.ajax({
+      url: 'https://www.quandl.com/api/v3/datasets/WIKI/'+name+'.json?column_index=4&start_date=2012-05-18&end_date=2017-08-23&api_key=TtcofE5o1LspPik3aRR6',
+      dataType: 'json',
+      success: function (response) {
           var arr=[];
           //console.log(response);
           $("#info-"+i).text(response.dataset.name);
@@ -125,11 +122,14 @@ $.each(names,function(i, name){
           if (seriesCounter === names.length) {
               createChart();
           }
-        }
-        
+      },
+      error: function(error) {    
+        humane.log(error.responseJSON.quandl_error.message, {addnCls: 'humane-libnotify-error'});
+        $('.overlay').slice(i, i+1).remove();
+         socket.emit('remove message',i);        
+      }
     });
   });
-
 }
 
 });
